@@ -13,6 +13,15 @@
 		01833B781B3BE82D0058B22A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01833B771B3BE82D0058B22A /* Images.xcassets */; };
 		01833B7B1B3BE82D0058B22A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01833B791B3BE82D0058B22A /* LaunchScreen.xib */; };
 		01833B871B3BE82D0058B22A /* BBYScannerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 01833B861B3BE82D0058B22A /* BBYScannerTests.m */; };
+		01833B911B3BE83A0058B22A /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01833B901B3BE83A0058B22A /* Storyboard.storyboard */; };
+		01833B941B3BE8DB0058B22A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01833B931B3BE8DB0058B22A /* UIKit.framework */; };
+		01833B961B3BE8E10058B22A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01833B951B3BE8E10058B22A /* QuartzCore.framework */; };
+		01833B981B3BE8E70058B22A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01833B971B3BE8E70058B22A /* CoreGraphics.framework */; };
+		01833B9A1B3BE8F50058B22A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01833B991B3BE8F50058B22A /* AVFoundation.framework */; };
+		01833B9C1B3BE8FC0058B22A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01833B9B1B3BE8FC0058B22A /* Foundation.framework */; };
+		01833B9F1B3BE94C0058B22A /* PrimaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01833B9E1B3BE94C0058B22A /* PrimaryViewController.m */; };
+		01833BA11B3BEAE90058B22A /* ScanBarCodes-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01833BA01B3BEAE90058B22A /* ScanBarCodes-Info.plist */; };
+		01833BD71B3D16D00058B22A /* Functions.m in Sources */ = {isa = PBXBuildFile; fileRef = 01833BD61B3D16D00058B22A /* Functions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,7 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01833B6B1B3BE82C0058B22A /* BBYScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BBYScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		01833B6B1B3BE82C0058B22A /* Scanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01833B6F1B3BE82D0058B22A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01833B701B3BE82D0058B22A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		01833B721B3BE82D0058B22A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -34,9 +43,20 @@
 		01833B751B3BE82D0058B22A /* BBYScanner-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BBYScanner-Prefix.pch"; sourceTree = "<group>"; };
 		01833B771B3BE82D0058B22A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		01833B7A1B3BE82D0058B22A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		01833B801B3BE82D0058B22A /* BBYScannerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BBYScannerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		01833B801B3BE82D0058B22A /* Scanner.temp_caseinsensitive_renameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Scanner.temp_caseinsensitive_renameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		01833B851B3BE82D0058B22A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01833B861B3BE82D0058B22A /* BBYScannerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBYScannerTests.m; sourceTree = "<group>"; };
+		01833B901B3BE83A0058B22A /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		01833B931B3BE8DB0058B22A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		01833B951B3BE8E10058B22A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		01833B971B3BE8E70058B22A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		01833B991B3BE8F50058B22A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		01833B9B1B3BE8FC0058B22A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		01833B9D1B3BE94C0058B22A /* PrimaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrimaryViewController.h; sourceTree = "<group>"; };
+		01833B9E1B3BE94C0058B22A /* PrimaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrimaryViewController.m; sourceTree = "<group>"; };
+		01833BA01B3BEAE90058B22A /* ScanBarCodes-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ScanBarCodes-Info.plist"; sourceTree = "<group>"; };
+		01833BD51B3D16D00058B22A /* Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Functions.h; sourceTree = "<group>"; };
+		01833BD61B3D16D00058B22A /* Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Functions.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +64,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01833B9C1B3BE8FC0058B22A /* Foundation.framework in Frameworks */,
+				01833B9A1B3BE8F50058B22A /* AVFoundation.framework in Frameworks */,
+				01833B981B3BE8E70058B22A /* CoreGraphics.framework in Frameworks */,
+				01833B961B3BE8E10058B22A /* QuartzCore.framework in Frameworks */,
+				01833B941B3BE8DB0058B22A /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +85,8 @@
 		01833B621B3BE82C0058B22A = {
 			isa = PBXGroup;
 			children = (
+				01833B921B3BE8C00058B22A /* Frameworks */,
+				01833B901B3BE83A0058B22A /* Storyboard.storyboard */,
 				01833B6D1B3BE82D0058B22A /* BBYScanner */,
 				01833B831B3BE82D0058B22A /* BBYScannerTests */,
 				01833B6C1B3BE82D0058B22A /* Products */,
@@ -69,8 +96,8 @@
 		01833B6C1B3BE82D0058B22A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				01833B6B1B3BE82C0058B22A /* BBYScanner.app */,
-				01833B801B3BE82D0058B22A /* BBYScannerTests.xctest */,
+				01833B6B1B3BE82C0058B22A /* Scanner.app */,
+				01833B801B3BE82D0058B22A /* Scanner.temp_caseinsensitive_renameTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -80,6 +107,10 @@
 			children = (
 				01833B721B3BE82D0058B22A /* AppDelegate.h */,
 				01833B731B3BE82D0058B22A /* AppDelegate.m */,
+				01833BD51B3D16D00058B22A /* Functions.h */,
+				01833BD61B3D16D00058B22A /* Functions.m */,
+				01833B9D1B3BE94C0058B22A /* PrimaryViewController.h */,
+				01833B9E1B3BE94C0058B22A /* PrimaryViewController.m */,
 				01833B751B3BE82D0058B22A /* BBYScanner-Prefix.pch */,
 				01833B771B3BE82D0058B22A /* Images.xcassets */,
 				01833B791B3BE82D0058B22A /* LaunchScreen.xib */,
@@ -91,6 +122,7 @@
 		01833B6E1B3BE82D0058B22A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				01833BA01B3BEAE90058B22A /* ScanBarCodes-Info.plist */,
 				01833B6F1B3BE82D0058B22A /* Info.plist */,
 				01833B701B3BE82D0058B22A /* main.m */,
 			);
@@ -114,12 +146,25 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		01833B921B3BE8C00058B22A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				01833B9B1B3BE8FC0058B22A /* Foundation.framework */,
+				01833B991B3BE8F50058B22A /* AVFoundation.framework */,
+				01833B971B3BE8E70058B22A /* CoreGraphics.framework */,
+				01833B951B3BE8E10058B22A /* QuartzCore.framework */,
+				01833B931B3BE8DB0058B22A /* UIKit.framework */,
+			);
+			name = Frameworks;
+			path = BBYScanner.xcodeproj;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		01833B6A1B3BE82C0058B22A /* BBYScanner */ = {
+		01833B6A1B3BE82C0058B22A /* Scanner.temp_caseinsensitive_rename */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 01833B8A1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "BBYScanner" */;
+			buildConfigurationList = 01833B8A1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "Scanner.temp_caseinsensitive_rename" */;
 			buildPhases = (
 				01833B671B3BE82C0058B22A /* Sources */,
 				01833B681B3BE82C0058B22A /* Frameworks */,
@@ -129,14 +174,14 @@
 			);
 			dependencies = (
 			);
-			name = BBYScanner;
+			name = Scanner.temp_caseinsensitive_rename;
 			productName = BBYScanner;
-			productReference = 01833B6B1B3BE82C0058B22A /* BBYScanner.app */;
+			productReference = 01833B6B1B3BE82C0058B22A /* Scanner.app */;
 			productType = "com.apple.product-type.application";
 		};
-		01833B7F1B3BE82D0058B22A /* BBYScannerTests */ = {
+		01833B7F1B3BE82D0058B22A /* Scanner.temp_caseinsensitive_renameTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 01833B8D1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "BBYScannerTests" */;
+			buildConfigurationList = 01833B8D1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "Scanner.temp_caseinsensitive_renameTests" */;
 			buildPhases = (
 				01833B7C1B3BE82D0058B22A /* Sources */,
 				01833B7D1B3BE82D0058B22A /* Frameworks */,
@@ -147,9 +192,9 @@
 			dependencies = (
 				01833B821B3BE82D0058B22A /* PBXTargetDependency */,
 			);
-			name = BBYScannerTests;
+			name = Scanner.temp_caseinsensitive_renameTests;
 			productName = BBYScannerTests;
-			productReference = 01833B801B3BE82D0058B22A /* BBYScannerTests.xctest */;
+			productReference = 01833B801B3BE82D0058B22A /* Scanner.temp_caseinsensitive_renameTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -170,7 +215,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 01833B661B3BE82C0058B22A /* Build configuration list for PBXProject "BBYScanner" */;
+			buildConfigurationList = 01833B661B3BE82C0058B22A /* Build configuration list for PBXProject "Scanner" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -183,8 +228,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				01833B6A1B3BE82C0058B22A /* BBYScanner */,
-				01833B7F1B3BE82D0058B22A /* BBYScannerTests */,
+				01833B6A1B3BE82C0058B22A /* Scanner.temp_caseinsensitive_rename */,
+				01833B7F1B3BE82D0058B22A /* Scanner.temp_caseinsensitive_renameTests */,
 			);
 		};
 /* End PBXProject section */
@@ -195,8 +240,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				01833B761B3BE82D0058B22A /* BBYScanner-Prefix.pch in Resources */,
+				01833B911B3BE83A0058B22A /* Storyboard.storyboard in Resources */,
 				01833B7B1B3BE82D0058B22A /* LaunchScreen.xib in Resources */,
 				01833B781B3BE82D0058B22A /* Images.xcassets in Resources */,
+				01833BA11B3BEAE90058B22A /* ScanBarCodes-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,7 +262,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				01833B741B3BE82D0058B22A /* AppDelegate.m in Sources */,
+				01833B9F1B3BE94C0058B22A /* PrimaryViewController.m in Sources */,
 				01833B711B3BE82D0058B22A /* main.m in Sources */,
+				01833BD71B3D16D00058B22A /* Functions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +281,7 @@
 /* Begin PBXTargetDependency section */
 		01833B821B3BE82D0058B22A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 01833B6A1B3BE82C0058B22A /* BBYScanner */;
+			target = 01833B6A1B3BE82C0058B22A /* Scanner.temp_caseinsensitive_rename */;
 			targetProxy = 01833B811B3BE82D0058B22A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -335,7 +384,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BBYScanner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Scanner;
 			};
 			name = Debug;
 		};
@@ -345,7 +394,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BBYScanner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Scanner;
 			};
 			name = Release;
 		};
@@ -363,8 +412,7 @@
 				);
 				INFOPLIST_FILE = BBYScannerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BBYScanner.app/BBYScanner";
+				PRODUCT_NAME = Scanner.temp_caseinsensitive_renameTests;
 			};
 			name = Debug;
 		};
@@ -378,15 +426,14 @@
 				);
 				INFOPLIST_FILE = BBYScannerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BBYScanner.app/BBYScanner";
+				PRODUCT_NAME = Scanner.temp_caseinsensitive_renameTests;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		01833B661B3BE82C0058B22A /* Build configuration list for PBXProject "BBYScanner" */ = {
+		01833B661B3BE82C0058B22A /* Build configuration list for PBXProject "Scanner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01833B881B3BE82D0058B22A /* Debug */,
@@ -395,21 +442,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		01833B8A1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "BBYScanner" */ = {
+		01833B8A1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "Scanner.temp_caseinsensitive_rename" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01833B8B1B3BE82D0058B22A /* Debug */,
 				01833B8C1B3BE82D0058B22A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		01833B8D1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "BBYScannerTests" */ = {
+		01833B8D1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "Scanner.temp_caseinsensitive_renameTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01833B8E1B3BE82D0058B22A /* Debug */,
 				01833B8F1B3BE82D0058B22A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

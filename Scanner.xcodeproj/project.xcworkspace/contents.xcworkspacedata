@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:BBYScanner.xcodeproj">
+      location = "self:/Users/frank/code/working/objective-c/BBYScanner/Scanner.xcodeproj">
    </FileRef>
 </Workspace>
