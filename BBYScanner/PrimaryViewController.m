@@ -12,6 +12,7 @@
 #import <Foundation/Foundation.h>
 #import "Functions.h"
 #import <QuartzCore/QuartzCore.h>
+#import "SpecsViewController.h"
 
 @interface PrimaryViewController () <AVCaptureMetadataOutputObjectsDelegate>
 {
@@ -23,14 +24,19 @@
     
     UIView *previewView;
     UIView *_highlightView;
+    UIView *topBack;
+    UIView *bottomBack;
     UILabel *_label;
     UILabel *name;
     UILabel *salePriceLabel;
     NSString *salePriceString;
     UIView *_line;
     UIButton *_button;
+    UIButton *specsButton;
     UIButton *initScanButton;
     UIButton *cancelButton;
+    UIButton *scanButton;
+    UIButton *magButton;
     NSString *detectionString;
     UIImageView *barcode;
     UIImageView *inStockImg;
@@ -55,6 +61,7 @@
     double newHeight;
     double ratio;
     
+    
 }
 @end
 
@@ -66,10 +73,27 @@
     
     height = self.view.bounds.size.height;
     width = self.view.bounds.size.width;
+    NSLog(@"Height %f", height);
+    NSLog(@"Width %f", width);
     scannerBottom = height-(height-((height/2)+100));
     scannerTop = height-(height-((height/2)-100));
     
-    self.view.backgroundColor = [UIColor colorWithRed:2/255.0 green:45/255.0 blue:82/255.0 alpha:1];
+    topBack = [[UIView alloc] init];
+    topBack.backgroundColor = [UIColor colorWithRed:2/255.0 green:45/255.0 blue:82/255.0 alpha:1];
+    [self.view addSubview:topBack];
+    
+    bottomBack = [[UIView alloc] init];
+    bottomBack.backgroundColor = [UIColor colorWithRed:2/255.0 green:45/255.0 blue:82/255.0 alpha:1];
+    [self.view addSubview:bottomBack];
+    
+    topBack.frame = CGRectMake(0, 0, width, (height/2)-120);
+    topBack.alpha = 0.90;
+    bottomBack.frame = CGRectMake(0, (height/2)+120, width, (height/2));
+    bottomBack.alpha = 0.90;
+
+    
+    
+    self.view.backgroundColor = [UIColor blackColor];
     
     _highlightView = [[UIView alloc] init];
     _highlightView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
@@ -78,37 +102,37 @@
     [self.view addSubview:_highlightView];
     
     barcode = [[UIImageView alloc] init];
-    barcode.frame = CGRectMake(self.view.bounds.size.width, (height/2)-120, 80, 80);
+    barcode.frame = CGRectMake((self.view.bounds.size.width/2)-40, (((height-scannerBottom)/2))-50, 80, 80);
     barcode.image = [UIImage imageNamed:@"whitebarcode"];
     [self.view addSubview:barcode];
     [self.view bringSubviewToFront:barcode];
     
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.5];
+    cancelButton = [[UIButton alloc] init];
+    cancelButton.frame = CGRectMake((self.view.bounds.size.width/2)-120, (height-((height-scannerBottom)/2))-32, 240, 64);
+    cancelButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [cancelButton addTarget:self
+                     action:@selector(cancelButton:)
+           forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlStateNormal];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchDown];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchUpInside];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchUpOutside];
+    [self.view addSubview:cancelButton];
+    [self.view bringSubviewToFront:cancelButton];
     
-    barcode.frame = CGRectMake((self.view.bounds.size.width/2)-40, (height/2)-120, 80, 80);
+//    magButton = [[UIButton alloc] init];
+//    magButton.frame = CGRectMake(self.view.bounds.size.width-60, 30, 40, 40);
+//    magButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+//    [magButton addTarget:self
+//                       action:@selector(initScanButton:)
+//             forControlEvents:UIControlEventTouchUpInside];
+//    [magButton setBackgroundImage:[UIImage imageNamed:@"mag"] forState:UIControlStateNormal];
+//    [magButton setBackgroundImage:[UIImage imageNamed:@"mag"] forState:UIControlEventTouchDown];
+//    [magButton setBackgroundImage:[UIImage imageNamed:@"mag"] forState:UIControlEventTouchUpInside];
+//    [magButton setBackgroundImage:[UIImage imageNamed:@"mag"] forState:UIControlEventTouchUpOutside];
+//    [self.view addSubview:magButton];
+//    [self.view bringSubviewToFront:magButton];
     
-    [UIView commitAnimations];
-    
-    initScanButton = [[UIButton alloc] init];
-    initScanButton.frame = CGRectMake(-240, (height/2)+64, 240, 64);
-    initScanButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [initScanButton addTarget:self
-                action:@selector(initScanButton:)
-      forControlEvents:UIControlEventTouchUpInside];
-    [initScanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-init"] forState:UIControlStateNormal];
-    [initScanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-pressed"] forState:UIControlEventTouchDown];
-    [initScanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-init"] forState:UIControlEventTouchUpInside];
-    [initScanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-init"] forState:UIControlEventTouchUpOutside];
-    [self.view addSubview:initScanButton];
-    [self.view bringSubviewToFront:initScanButton];
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.5];
-    
-    initScanButton.frame = CGRectMake((self.view.bounds.size.width/2)-120, (height/2)+64, 240, 64);
-    
-    [UIView commitAnimations];
     
 //    _line = [[UIView alloc] init];
 //    _line.frame = CGRectMake((self.view.bounds.size.width/2)-150, (self.view.bounds.size.height / 2)-50, 300, 100);
@@ -117,8 +141,9 @@
 //    _line.layer.borderWidth = 1;
 //    [self.view addSubview:_line];
     
+    
     name = [[UILabel alloc] init];
-    name.frame = CGRectMake(width, (((height-scannerBottom)/2))-40, self.view.bounds.size.width-150, 40);
+    name.frame = CGRectMake(width, (((height-scannerBottom)/2))-50, self.view.bounds.size.width-150, 40);
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:20]];
     name.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     name.textColor = [UIColor whiteColor];
@@ -128,7 +153,7 @@
     [name setAlpha:0];
     
     salePriceLabel = [[UILabel alloc] init];
-    salePriceLabel.frame = CGRectMake(width, (((height-scannerBottom)/2)), self.view.bounds.size.width, 40);
+    salePriceLabel.frame = CGRectMake(width, (((height-scannerBottom)/2)-16), self.view.bounds.size.width, 40);
     [salePriceLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:30]];
     salePriceLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     salePriceLabel.textColor = [UIColor whiteColor];
@@ -138,14 +163,16 @@
     [salePriceLabel setAlpha:0];
     
     inStockImg = [[UIImageView alloc] init];
-    inStockImg.frame = CGRectMake(0, 0, 50, 50);
+    inStockImg.frame = CGRectMake((width/2)-75, (height/2)-75, 150, 150);
     inStockImg.image = [UIImage imageNamed:@"scanned-checkmark-bluegreen"];
     [inStockImg setAlpha:0];
     
     outStockImg = [[UIImageView alloc] init];
-    outStockImg.frame = CGRectMake(0, 0, 50, 50);
+    outStockImg.frame = CGRectMake((width/2)-75, (height/2)-75, 150, 150);
     outStockImg.image = [UIImage imageNamed:@"scanned-x-bluered"];
     [outStockImg setAlpha:0];
+    
+    [self initSession];
     
     
     [self.view bringSubviewToFront:_highlightView];
@@ -199,6 +226,7 @@
             newDetectionType = [functions determineScanType:detectionString];
             productResult = [functions returnDataProducts:newDetectionString codeType:newDetectionType];
             storeResult = [functions returnDataStores:newDetectionString codeType:newDetectionType];
+            NSLog(@"Product Class %@", [productResult class]);
             salePrice = productResult[@"products"][0][@"salePrice"];
             salePriceDouble = fabs(salePrice.doubleValue);
             if (storeResult != nil && productResult != nil) {
@@ -227,34 +255,88 @@
 - (IBAction) _button: (id) sender {
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];
-    barcode.frame = CGRectMake((self.view.bounds.size.width/2)-40, (((height-scannerBottom)/2))-40, 80, 80);
-    salePriceLabel.frame = CGRectMake(width, (((height-scannerBottom)/2)), self.view.bounds.size.width, 40);
-    name.frame = CGRectMake(width, (((height-scannerBottom)/2))-40, self.view.bounds.size.width-150, 40);
-    previewView.frame = CGRectMake(20, ((self.view.bounds.size.height/2)-100), self.view.bounds.size.width-40, 200);
-    productImage.frame = CGRectMake(-newWidth, (height/2)-(newHeight/2), newWidth, newHeight);
+    barcode.frame = CGRectMake((self.view.bounds.size.width/2)-40, (((height-scannerBottom)/2))-50, 80, 80);
+    salePriceLabel.frame = CGRectMake(width, (((height-scannerBottom)/2)-16), self.view.bounds.size.width, 40);
+    name.frame = CGRectMake(width, (((height-scannerBottom)/2))-50, self.view.bounds.size.width-150, 40);
     [UIView commitAnimations];
+    previewView.frame = CGRectMake(0, 0, width, height);
     [_line setAlpha:1];
     [inStockImg setAlpha:0];
     [outStockImg setAlpha:0];
     [badUPCImg setAlpha:0];
     [_button removeFromSuperview];
+    [specsButton removeFromSuperview];
     [_session performSelectorInBackground:@selector(startRunning) withObject:nil];
 }
 
+- (IBAction) specsButton: (id) sender {
+    [self performSegueWithIdentifier:@"toSpecs" sender:sender];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"toSpecs"]){
+        SpecsViewController *controller = (PrimaryViewController *)segue.destinationViewController;
+        controller.productResult = productResult;
+        controller.storeResult = storeResult;
+    }
+}
+
+
+
 - (IBAction) cancelButton: (id) sender {
-    [self.view addSubview:initScanButton];
+    scanButton = [[UIButton alloc] init];
+    scanButton.frame = CGRectMake((self.view.bounds.size.width/2)-120, (height-((height-scannerBottom)/2))-32, 240, 64);
+    scanButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [scanButton addTarget:self
+                       action:@selector(scanButton:)
+             forControlEvents:UIControlEventTouchUpInside];
+    [scanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlStateNormal];
+    [scanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlEventTouchDown];
+    [scanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlEventTouchUpInside];
+    [scanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlEventTouchUpOutside];
+    [self.view addSubview:scanButton];
+    [self.view bringSubviewToFront:scanButton];
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];
     [UIView setAnimationDelay:0.3];
-    barcode.frame = CGRectMake((self.view.bounds.size.width/2)-40, (height/2)-120, 80, 80);
-    initScanButton.frame = CGRectMake((self.view.bounds.size.width/2)-120, (height/2)+64, 240, 64);
-    [UIView commitAnimations];
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.5];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-    previewView.frame = CGRectMake(width, ((self.view.bounds.size.height/2)-100), self.view.bounds.size.width-40, 200);
+    barcode.frame = CGRectMake((self.view.bounds.size.width/2)-40, (((height-scannerBottom)/2))-50, 80, 80);
+    scanButton.frame =  scanButton.frame = CGRectMake((self.view.bounds.size.width/2)-120, (height/2)+64, 240, 64);
+    topBack.frame = CGRectMake(0, 0, width, height/2);
+    topBack.alpha = 1;
+    bottomBack.frame = CGRectMake(0, height/2, width, height/2);
+    bottomBack.alpha = 1;
     [UIView commitAnimations];
     [cancelButton removeFromSuperview];
+}
+
+- (IBAction) scanButton: (id) sender {
+    cancelButton = [[UIButton alloc] init];
+    cancelButton.frame = CGRectMake((self.view.bounds.size.width/2)-120, (height/2)+64, 240, 64);
+    cancelButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [cancelButton addTarget:self
+                     action:@selector(cancelButton:)
+           forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlStateNormal];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchDown];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchUpInside];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchUpOutside];
+    [self.view addSubview:cancelButton];
+    [self.view bringSubviewToFront:cancelButton];
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDelay:.4];
+    topBack.frame = CGRectMake(0, 0, width, (height/2)-120);
+    topBack.alpha = 0.90;
+    bottomBack.frame = CGRectMake(0, (height/2)+120, width, (height/2));
+    bottomBack.alpha = 0.90;
+    barcode.frame = CGRectMake((self.view.bounds.size.width/2)-40, (((height-scannerBottom)/2))-50, 80, 80);
+    cancelButton.frame = CGRectMake((self.view.bounds.size.width/2)-120, (height-((height-scannerBottom)/2))-32, 240, 64);
+    [UIView commitAnimations];
+    [specsButton removeFromSuperview];
+    [scanButton removeFromSuperview];
+    scanButton.frame = CGRectMake((self.view.bounds.size.width/2)-120, (height-((height-scannerBottom)/2))-32, 240, 64);
+    [_session performSelectorInBackground:@selector(startRunning) withObject:nil];
 }
 
 - (IBAction) initScanButton: (id) sender {
@@ -262,33 +344,30 @@
     cancelButton.frame = CGRectMake((self.view.bounds.size.width/2)-120, (height/2)+64, 240, 64);
     cancelButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     [cancelButton addTarget:self
-                action:@selector(cancelButton:)
-      forControlEvents:UIControlEventTouchUpInside];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"scan-button-cancel"] forState:UIControlStateNormal];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"scan-button-pressed"] forState:UIControlEventTouchDown];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"scan-button-cancel"] forState:UIControlEventTouchUpInside];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"scan-button-cancel"] forState:UIControlEventTouchUpOutside];
+                     action:@selector(cancelButton:)
+           forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlStateNormal];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchDown];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchUpInside];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchUpOutside];
     [self.view addSubview:cancelButton];
     [self.view bringSubviewToFront:cancelButton];
+
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];
     [UIView setAnimationDelay:.4];
+    topBack.frame = CGRectMake(0, 0, width, (height/2)-120);
+    topBack.alpha = 0.90;
+    bottomBack.frame = CGRectMake(0, (height/2)+120, width, (height/2));
+    bottomBack.alpha = 0.90;
     barcode.frame = CGRectMake((self.view.bounds.size.width/2)-40, (((height-scannerBottom)/2))-40, 80, 80);
     cancelButton.frame = CGRectMake((self.view.bounds.size.width/2)-120, (height-((height-scannerBottom)/2))-32, 240, 64);
     [UIView commitAnimations];
     [self performSelectorInBackground:@selector(initSession) withObject:nil];
+    [specsButton removeFromSuperview];
     [initScanButton removeFromSuperview];
     initScanButton.frame = CGRectMake((self.view.bounds.size.width/2)-120, (height-((height-scannerBottom)/2))-32, 240, 64);
-    [_session startRunning];
-}
-
-- (void) flyVideoIn {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.5];
-    [UIView setAnimationDelay:.1];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-    previewView.frame = CGRectMake(20, ((self.view.bounds.size.height/2)-100), self.view.bounds.size.width-40, 200);
-    [UIView commitAnimations];
+    [_session performSelectorInBackground:@selector(startRunning) withObject:nil];
 }
 
 - (void)initSession
@@ -311,18 +390,17 @@
     
     _output.metadataObjectTypes = [_output availableMetadataObjectTypes];
     
-    previewView.frame = CGRectMake(-(self.view.bounds.size.width-40), ((self.view.bounds.size.height/2)-100), self.view.bounds.size.width-40, 200);
+    previewView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     previewView.backgroundColor = [UIColor blackColor];
     
     _prevLayer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
-    _prevLayer.frame = CGRectMake(0, 0, self.view.bounds.size.width-40, 200);
+    _prevLayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     _prevLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [self.view addSubview:previewView];
-    [self.view bringSubviewToFront:previewView];
     [previewView.layer addSublayer:_prevLayer];
+    [self.view sendSubviewToBack:previewView];
     
     [_session startRunning];
-    [self flyVideoIn];
 }
 
 - (void) addButton {
@@ -332,101 +410,50 @@
     [_button addTarget:self
                 action:@selector(_button:)
       forControlEvents:UIControlEventTouchUpInside];
-    [_button setBackgroundImage:[UIImage imageNamed:@"scan-button-invert"] forState:UIControlStateNormal];
-    [_button setBackgroundImage:[UIImage imageNamed:@"scan-button-pressed"] forState:UIControlEventTouchDown];
-    [_button setBackgroundImage:[UIImage imageNamed:@"scan-button-invert"] forState:UIControlEventTouchUpInside];
-    [_button setBackgroundImage:[UIImage imageNamed:@"scan-button-invert"] forState:UIControlEventTouchUpOutside];
+    [_button setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlStateNormal];
+    [_button setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlEventTouchDown];
+    [_button setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlEventTouchUpInside];
+    [_button setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlEventTouchUpOutside];
     [self.view addSubview:_button];
     [self.view bringSubviewToFront:_button];
 }
 
-- (void) initProductImage:(NSString*)pullDetectionString typeofCode:(NSString *)typeofCode {
-    productDict = [functions returnDataProducts:pullDetectionString codeType:typeofCode];
-    NSLog(@"%@", productDict[@"products"][0][@"largeImage"]);
-    productImage = [[UIImageView alloc] init];
-    productImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:productDict[@"products"][0][@"largeImage"]]]];
-
-    NSLog(@"%f", productImage.image.size.height);
-    NSLog(@"%f", productImage.image.size.width);
-    ratio = productImage.image.size.height/productImage.image.size.width;
-    NSLog(@"%f", ratio);
-    if (ratio > 1) {
-        if (productImage.image.size.height < 200) {
-            newHeight = productImage.image.size.height + (200 - productImage.image.size.height);
-        } else {
-            newHeight = productImage.image.size.height - (productImage.image.size.height - 200);
-        }
-        newWidth = newHeight/ratio;
-        NSLog(@"%f", newHeight);
-        NSLog(@"%f", newWidth);
-        NSLog(@"Go");
-    } else {
-        if (productImage.image.size.width < 200) {
-            newWidth = productImage.image.size.width + (200 - productImage.image.size.width);
-        } else {
-            newWidth = productImage.image.size.width - (productImage.image.size.width - 200);
-        }
-        newHeight = newWidth*ratio;
-        NSLog(@"Go Else");
-    }
-    NSLog(@"%f", newHeight);
-    NSLog(@"%f", newWidth);
-
-    productImage.frame = CGRectMake(-newWidth, (height/2)-(newHeight/2), newWidth, newHeight);
-    [self.view addSubview:productImage];
-    [self.view bringSubviewToFront:productImage];
-}
 
 - (void) goodScan:(NSString*)pullDetectionString typeofCode:(NSString *)typeofCode {
-    [self initProductImage:pullDetectionString typeofCode:typeofCode];
-    [productImage addSubview:inStockImg];
+//    [self initProductImage:pullDetectionString typeofCode:typeofCode];
+    [self.view addSubview:inStockImg];
+    [self addSpecsButton];
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];
-    barcode.frame = CGRectMake(40, (((height-scannerBottom)/2))-40, 80, 80);
-    productImage.frame = CGRectMake((width/2)-(newWidth/2), (height/2)-(newHeight/2), newWidth, newHeight);
-    previewView.frame = CGRectMake(self.view.bounds.size.width, ((self.view.bounds.size.height/2)-100), self.view.bounds.size.width-40, 200);
+    barcode.frame = CGRectMake(40, (((height-scannerBottom)/2))-50, 80, 80);
+//    productImage.frame = CGRectMake((width/2)-(newWidth/2), (height/2)-(newHeight/2), newWidth, newHeight);
+    previewView.frame = CGRectMake(0, 0, width, height);
     [inStockImg setAlpha:1];
     [name setAlpha:1];
     [salePriceLabel setAlpha:1];
     highlightViewRect = CGRectZero;
-    [UIView commitAnimations];
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.25];
-    [UIView setAnimationDelay:0.30];
-    name.frame = CGRectMake(140, (((height-scannerBottom)/2))-40, self.view.bounds.size.width-150, 40);
-    [UIView commitAnimations];
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.25];
-    [UIView setAnimationDelay:0.55];
-    salePriceLabel.frame = CGRectMake(140, (((height-scannerBottom)/2)), self.view.bounds.size.width, 40);
+    specsButton.frame = CGRectMake(width-150, (height/2)-168, 120, 30);
+    name.frame = CGRectMake(140, (((height-scannerBottom)/2))-50, self.view.bounds.size.width-150, 40);
+    salePriceLabel.frame = CGRectMake(140, (((height-scannerBottom)/2)-16), self.view.bounds.size.width, 40);
     [UIView commitAnimations];
     
     [self addButton];
 }
 
 - (void) goodScanOut:(NSString*)pullDetectionString typeofCode:(NSString *)typeofCode {
-    [self initProductImage:pullDetectionString typeofCode:typeofCode];
-    [productImage addSubview:outStockImg];
+    [self.view addSubview:outStockImg];
+    [self addSpecsButton];
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];
-    barcode.frame = CGRectMake(40, (((height-scannerBottom)/2))-40, 80, 80);
-    productImage.frame = CGRectMake((width/2)-(newWidth/2), (height/2)-(newHeight/2), newWidth, newHeight);
-    previewView.frame = CGRectMake(self.view.bounds.size.width, ((self.view.bounds.size.height/2)-100), self.view.bounds.size.width-40, 200);
+    barcode.frame = CGRectMake(40, (((height-scannerBottom)/2))-50, 80, 80);
 //    CGRect rect = [outStockImg frame];
     [outStockImg setAlpha:1];
     [name setAlpha:1];
     [salePriceLabel setAlpha:1];
     highlightViewRect = CGRectZero;
-    [UIView commitAnimations];
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.25];
-    [UIView setAnimationDelay:0.30];
-    name.frame = CGRectMake(140, (((height-scannerBottom)/2))-40, self.view.bounds.size.width-150, 40);
-    [UIView commitAnimations];
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.25];
-    [UIView setAnimationDelay:0.55];
-    salePriceLabel.frame = CGRectMake(140, (((height-scannerBottom)/2)), self.view.bounds.size.width, 40);
+    name.frame = CGRectMake(140, (((height-scannerBottom)/2))-50, self.view.bounds.size.width-150, 40);
+    salePriceLabel.frame = CGRectMake(140, (((height-scannerBottom)/2)-16), self.view.bounds.size.width, 40);
+    specsButton.frame = CGRectMake(width-150, (height/2)-168, 120, 30);
     [UIView commitAnimations];
     [self addButton];
 }
@@ -451,6 +478,20 @@
     highlightViewRect = CGRectZero;
     [UIView commitAnimations];
     [self addButton];
+}
+
+-(void) addSpecsButton {
+    specsButton = [[UIButton alloc] init];
+    specsButton.frame = CGRectMake(width, (height/2)-168, 120, 30);
+    [specsButton addTarget:self
+                    action:@selector(specsButton:)
+      forControlEvents:UIControlEventTouchUpInside];
+    [specsButton setBackgroundImage:[UIImage imageNamed:@"specs"] forState:UIControlStateNormal];
+    [specsButton setBackgroundImage:[UIImage imageNamed:@"specs"] forState:UIControlEventTouchDown];
+    [specsButton setBackgroundImage:[UIImage imageNamed:@"specs"] forState:UIControlEventTouchUpInside];
+    [specsButton setBackgroundImage:[UIImage imageNamed:@"specs"] forState:UIControlEventTouchUpOutside];
+    [self.view addSubview:specsButton];
+    [self.view bringSubviewToFront:specsButton];
 }
 
 

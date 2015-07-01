@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Functions.h"
+#import "PrimaryViewController.h"
 
 @interface AppDelegate ()
 
