@@ -24,7 +24,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:2/255.0 green:45/255.0 blue:82/255.0 alpha:1];
     
     done = [[UIButton alloc] initWithFrame:CGRectMake(20, 30, 40, 40)];
-    [done setBackgroundImage:[UIImage imageNamed:@"leftarrowwhite10pt"] forState:UIControlStateNormal];
+    [done setBackgroundImage:[UIImage imageNamed:@"leftarrowwhite"] forState:UIControlStateNormal];
     [done addTarget:self
              action:@selector(doneButton:)
    forControlEvents:UIControlEventTouchUpInside];

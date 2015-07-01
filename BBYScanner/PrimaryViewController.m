@@ -299,7 +299,7 @@
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];
     [UIView setAnimationDelay:0.3];
-    barcode.frame = CGRectMake((self.view.bounds.size.width/2)-40, (((height-scannerBottom)/2))-50, 80, 80);
+    barcode.frame = CGRectMake((self.view.bounds.size.width/2)-40, (height/2)-120, 80, 80);
     scanButton.frame =  scanButton.frame = CGRectMake((self.view.bounds.size.width/2)-120, (height/2)+64, 240, 64);
     topBack.frame = CGRectMake(0, 0, width, height/2);
     topBack.alpha = 1;
