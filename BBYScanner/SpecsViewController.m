@@ -38,12 +38,12 @@
     UIScrollView *scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 90, self.view.frame.size.width, self.view.frame.size.height-90)];
     
     for (int i = 0; i < [productResult[@"products"][0][@"details"] count]; i++) {
-        UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(20, 0+(height*i), self.view.bounds.size.width, 30)];
+        UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(20, 0+(height*i), self.view.bounds.size.width-20, 30)];
         NSLog(@"%@", productResult[@"products"][0][@"details"][i][@"name"]);
         name.text = productResult[@"products"][0][@"details"][i][@"name"];
         name.textColor = [UIColor whiteColor];
         [name setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:20]];
-        UILabel *value = [[UILabel alloc] initWithFrame:CGRectMake(20, 30+(height*i), self.view.bounds.size.width, 20)];
+        UILabel *value = [[UILabel alloc] initWithFrame:CGRectMake(20, 30+(height*i), self.view.bounds.size.width-20, 20)];
         value.text = productResult[@"products"][0][@"details"][i][@"value"];
         value.textColor = [UIColor whiteColor];
         [value setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15]];
