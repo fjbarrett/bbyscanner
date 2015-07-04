@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		017F74081B43CC8A00127DBE /* SpecsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 017F74071B43CC8A00127DBE /* SpecsViewController.m */; };
 		01833B711B3BE82D0058B22A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01833B701B3BE82D0058B22A /* main.m */; };
 		01833B741B3BE82D0058B22A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01833B731B3BE82D0058B22A /* AppDelegate.m */; };
 		01833B761B3BE82D0058B22A /* BBYScanner-Prefix.pch in Resources */ = {isa = PBXBuildFile; fileRef = 01833B751B3BE82D0058B22A /* BBYScanner-Prefix.pch */; };
@@ -35,7 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01833B6B1B3BE82C0058B22A /* Scanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		017F74061B43CC8A00127DBE /* SpecsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecsViewController.h; sourceTree = "<group>"; };
+		017F74071B43CC8A00127DBE /* SpecsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecsViewController.m; sourceTree = "<group>"; };
+		01833B6B1B3BE82C0058B22A /* BBYScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BBYScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01833B6F1B3BE82D0058B22A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01833B701B3BE82D0058B22A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		01833B721B3BE82D0058B22A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -43,7 +46,7 @@
 		01833B751B3BE82D0058B22A /* BBYScanner-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BBYScanner-Prefix.pch"; sourceTree = "<group>"; };
 		01833B771B3BE82D0058B22A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		01833B7A1B3BE82D0058B22A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		01833B801B3BE82D0058B22A /* Scanner.temp_caseinsensitive_renameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Scanner.temp_caseinsensitive_renameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		01833B801B3BE82D0058B22A /* BBYScanner.temp_caseinsensitive_renameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BBYScanner.temp_caseinsensitive_renameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		01833B851B3BE82D0058B22A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01833B861B3BE82D0058B22A /* BBYScannerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBYScannerTests.m; sourceTree = "<group>"; };
 		01833B901B3BE83A0058B22A /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
@@ -96,8 +99,8 @@
 		01833B6C1B3BE82D0058B22A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				01833B6B1B3BE82C0058B22A /* Scanner.app */,
-				01833B801B3BE82D0058B22A /* Scanner.temp_caseinsensitive_renameTests.xctest */,
+				01833B6B1B3BE82C0058B22A /* BBYScanner.app */,
+				01833B801B3BE82D0058B22A /* BBYScanner.temp_caseinsensitive_renameTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -111,6 +114,8 @@
 				01833BD61B3D16D00058B22A /* Functions.m */,
 				01833B9D1B3BE94C0058B22A /* PrimaryViewController.h */,
 				01833B9E1B3BE94C0058B22A /* PrimaryViewController.m */,
+				017F74061B43CC8A00127DBE /* SpecsViewController.h */,
+				017F74071B43CC8A00127DBE /* SpecsViewController.m */,
 				01833B751B3BE82D0058B22A /* BBYScanner-Prefix.pch */,
 				01833B771B3BE82D0058B22A /* Images.xcassets */,
 				01833B791B3BE82D0058B22A /* LaunchScreen.xib */,
@@ -162,9 +167,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		01833B6A1B3BE82C0058B22A /* Scanner.temp_caseinsensitive_rename */ = {
+		01833B6A1B3BE82C0058B22A /* BBYScanner */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 01833B8A1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "Scanner.temp_caseinsensitive_rename" */;
+			buildConfigurationList = 01833B8A1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "BBYScanner" */;
 			buildPhases = (
 				01833B671B3BE82C0058B22A /* Sources */,
 				01833B681B3BE82C0058B22A /* Frameworks */,
@@ -174,14 +179,14 @@
 			);
 			dependencies = (
 			);
-			name = Scanner.temp_caseinsensitive_rename;
+			name = BBYScanner;
 			productName = BBYScanner;
-			productReference = 01833B6B1B3BE82C0058B22A /* Scanner.app */;
+			productReference = 01833B6B1B3BE82C0058B22A /* BBYScanner.app */;
 			productType = "com.apple.product-type.application";
 		};
-		01833B7F1B3BE82D0058B22A /* Scanner.temp_caseinsensitive_renameTests */ = {
+		01833B7F1B3BE82D0058B22A /* BBYScanner.temp_caseinsensitive_renameTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 01833B8D1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "Scanner.temp_caseinsensitive_renameTests" */;
+			buildConfigurationList = 01833B8D1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "BBYScanner.temp_caseinsensitive_renameTests" */;
 			buildPhases = (
 				01833B7C1B3BE82D0058B22A /* Sources */,
 				01833B7D1B3BE82D0058B22A /* Frameworks */,
@@ -192,9 +197,9 @@
 			dependencies = (
 				01833B821B3BE82D0058B22A /* PBXTargetDependency */,
 			);
-			name = Scanner.temp_caseinsensitive_renameTests;
+			name = BBYScanner.temp_caseinsensitive_renameTests;
 			productName = BBYScannerTests;
-			productReference = 01833B801B3BE82D0058B22A /* Scanner.temp_caseinsensitive_renameTests.xctest */;
+			productReference = 01833B801B3BE82D0058B22A /* BBYScanner.temp_caseinsensitive_renameTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -208,6 +213,7 @@
 				TargetAttributes = {
 					01833B6A1B3BE82C0058B22A = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 79JST9M2ML;
 					};
 					01833B7F1B3BE82D0058B22A = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -215,7 +221,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 01833B661B3BE82C0058B22A /* Build configuration list for PBXProject "Scanner" */;
+			buildConfigurationList = 01833B661B3BE82C0058B22A /* Build configuration list for PBXProject "BBYScanner" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -228,8 +234,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				01833B6A1B3BE82C0058B22A /* Scanner.temp_caseinsensitive_rename */,
-				01833B7F1B3BE82D0058B22A /* Scanner.temp_caseinsensitive_renameTests */,
+				01833B6A1B3BE82C0058B22A /* BBYScanner */,
+				01833B7F1B3BE82D0058B22A /* BBYScanner.temp_caseinsensitive_renameTests */,
 			);
 		};
 /* End PBXProject section */
@@ -261,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				017F74081B43CC8A00127DBE /* SpecsViewController.m in Sources */,
 				01833B741B3BE82D0058B22A /* AppDelegate.m in Sources */,
 				01833B9F1B3BE94C0058B22A /* PrimaryViewController.m in Sources */,
 				01833B711B3BE82D0058B22A /* main.m in Sources */,
@@ -281,7 +288,7 @@
 /* Begin PBXTargetDependency section */
 		01833B821B3BE82D0058B22A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 01833B6A1B3BE82C0058B22A /* Scanner.temp_caseinsensitive_rename */;
+			target = 01833B6A1B3BE82C0058B22A /* BBYScanner */;
 			targetProxy = 01833B811B3BE82D0058B22A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -382,9 +389,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BBYScanner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = Scanner;
+				PRODUCT_NAME = BBYScanner;
 			};
 			name = Debug;
 		};
@@ -392,9 +400,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BBYScanner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = Scanner;
+				PRODUCT_NAME = BBYScanner;
 			};
 			name = Release;
 		};
@@ -412,7 +421,7 @@
 				);
 				INFOPLIST_FILE = BBYScannerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = Scanner.temp_caseinsensitive_renameTests;
+				PRODUCT_NAME = BBYScanner.temp_caseinsensitive_renameTests;
 			};
 			name = Debug;
 		};
@@ -426,14 +435,14 @@
 				);
 				INFOPLIST_FILE = BBYScannerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = Scanner.temp_caseinsensitive_renameTests;
+				PRODUCT_NAME = BBYScanner.temp_caseinsensitive_renameTests;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		01833B661B3BE82C0058B22A /* Build configuration list for PBXProject "Scanner" */ = {
+		01833B661B3BE82C0058B22A /* Build configuration list for PBXProject "BBYScanner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01833B881B3BE82D0058B22A /* Debug */,
@@ -442,7 +451,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		01833B8A1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "Scanner.temp_caseinsensitive_rename" */ = {
+		01833B8A1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "BBYScanner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01833B8B1B3BE82D0058B22A /* Debug */,
@@ -451,7 +460,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		01833B8D1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "Scanner.temp_caseinsensitive_renameTests" */ = {
+		01833B8D1B3BE82D0058B22A /* Build configuration list for PBXNativeTarget "BBYScanner.temp_caseinsensitive_renameTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01833B8E1B3BE82D0058B22A /* Debug */,
