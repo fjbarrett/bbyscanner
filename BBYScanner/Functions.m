@@ -8,17 +8,31 @@
 
 #import "Functions.h"
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <sys/utsname.h>
 
 NSDictionary *dictionary;
+NSString *storeNumber;
+NSUserDefaults *defaults;
 
 @implementation Functions
 
 NSDictionary *storesDataDictionary;
 NSDictionary *productsDataDictionary;
 
-- (void) postToMysql:(NSString*)string {
+NSString*
+machineName()
+{
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    
+    return [NSString stringWithCString:systemInfo.machine
+                              encoding:NSUTF8StringEncoding];
+}
 
-    NSString *post = [NSString stringWithFormat:@"misc=%@",string];
+- (void) postToMysql:(NSString*)string {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *post = [NSString stringWithFormat:@"data=%@&name=%@&store=%@&model=%@&version=%@",string, [UIDevice currentDevice].name, [defaults valueForKey:@"storeNumber"], machineName(), [UIDevice currentDevice].systemVersion];
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -59,8 +73,15 @@ NSDictionary *productsDataDictionary;
 
 - (NSDictionary*) returnDataStores:(NSString*)goodString codeType:(NSString*)codeType {
     
+    defaults = [NSUserDefaults standardUserDefaults];
+    storeNumber = [defaults valueForKey:@"storeNumber"];
+
+    NSLog(storeNumber);
+    
     if (goodString != nil) {
-        NSString *URLStringStores = @"http://api.remix.bestbuy.com/v1/stores(storeId=251)+products(";
+        NSString *URLStringStores = @"http://api.remix.bestbuy.com/v1/stores(storeId=";
+        URLStringStores = [URLStringStores stringByAppendingString:storeNumber];
+        URLStringStores = [URLStringStores stringByAppendingString:@")+products("];
         URLStringStores = [URLStringStores stringByAppendingString:codeType];
         URLStringStores = [URLStringStores stringByAppendingString:@"="];
         URLStringStores = [URLStringStores stringByAppendingString:goodString];
@@ -88,7 +109,7 @@ NSDictionary *productsDataDictionary;
 
 
 - (NSDictionary*) returnDataProducts:(NSString*)goodString codeType:(NSString*)codeType {
-    
+    [self postToMysql:goodString];
     if (goodString != nil) {
         NSString *URLStringProducts =  @"http://api.remix.bestbuy.com/v1/products(";
         URLStringProducts = [URLStringProducts stringByAppendingString:codeType];
@@ -144,6 +165,29 @@ NSDictionary *productsDataDictionary;
         } else {
             return nil;
         }
+}
+
+- (int) determineStoreLegit:(NSString*)storeNumber {
+    NSString *storeString = [NSString stringWithFormat:@"%@%@%@", @"http://api.remix.bestbuy.com/v1/stores(storeId=", storeNumber, @")?format=json&apiKey=9xr8yxxbq2wthscxsspcy24z"];
+    NSURL *storeURL = [NSURL URLWithString:storeString];
+    NSData *dataAPIURL = [NSData dataWithContentsOfURL:storeURL];
+    
+    NSError *error = nil;
+    
+    NSDictionary *storeCheckDict = [NSJSONSerialization JSONObjectWithData:dataAPIURL options:0 error:&error];
+    
+    NSLog(@"%@", storeCheckDict[@"to"]);
+    
+    int storeCheck = [[storeCheckDict objectForKey:@"to"] intValue];
+    
+    NSLog(@"%i", storeCheck);
+    
+    if (storeCheck == 0) {
+        NSLog(@"Return 0");
+        return 0;
+    }
+    NSLog(@"Return 1");
+    return 1;
 }
 
 @end

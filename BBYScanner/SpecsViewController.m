@@ -42,11 +42,11 @@
         NSLog(@"%@", productResult[@"products"][0][@"details"][i][@"name"]);
         name.text = productResult[@"products"][0][@"details"][i][@"name"];
         name.textColor = [UIColor whiteColor];
-        [name setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:20]];
+        [name setFont:[UIFont fontWithName:@"SFUIText-Regular" size:20]];
         UILabel *value = [[UILabel alloc] initWithFrame:CGRectMake(20, 30+(height*i), self.view.bounds.size.width-20, 20)];
         value.text = productResult[@"products"][0][@"details"][i][@"value"];
         value.textColor = [UIColor whiteColor];
-        [value setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15]];
+        [value setFont:[UIFont fontWithName:@"SFUIText-Light" size:15]];
         [scrollview addSubview:value];
         [scrollview addSubview:name];
     }
@@ -61,6 +61,10 @@
 
 - (IBAction) doneButton: (id) sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [self.view endEditing:YES];
 }
 
 @end

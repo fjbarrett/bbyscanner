@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "01833B6A1B3BE82C0058B22A"
                BuildableName = "BBYScanner.app"
-               BlueprintName = "BBYScanner"
+               BlueprintName = "BBYScanner.temp_caseinsensitive_rename"
                ReferencedContainer = "container:BBYScanner.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "01833B7F1B3BE82D0058B22A"
-               BuildableName = "BBY Scanner (251).temp_caseinsensitive_renameTests.xctest"
+               BuildableName = "BBYScanner.temp_caseinsensitive_renameTests.xctest"
                BlueprintName = "BBYScanner.temp_caseinsensitive_renameTests"
                ReferencedContainer = "container:BBYScanner.xcodeproj">
             </BuildableReference>
@@ -47,7 +47,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "01833B7F1B3BE82D0058B22A"
-               BuildableName = "BBY Scanner (251).temp_caseinsensitive_renameTests.xctest"
+               BuildableName = "BBYScanner.temp_caseinsensitive_renameTests.xctest"
                BlueprintName = "BBYScanner.temp_caseinsensitive_renameTests"
                ReferencedContainer = "container:BBYScanner.xcodeproj">
             </BuildableReference>
@@ -58,7 +58,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "01833B6A1B3BE82C0058B22A"
             BuildableName = "BBYScanner.app"
-            BlueprintName = "BBYScanner"
+            BlueprintName = "BBYScanner.temp_caseinsensitive_rename"
             ReferencedContainer = "container:BBYScanner.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -78,7 +78,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "01833B6A1B3BE82C0058B22A"
             BuildableName = "BBYScanner.app"
-            BlueprintName = "BBYScanner"
+            BlueprintName = "BBYScanner.temp_caseinsensitive_rename"
             ReferencedContainer = "container:BBYScanner.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -97,7 +97,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "01833B6A1B3BE82C0058B22A"
             BuildableName = "BBYScanner.app"
-            BlueprintName = "BBYScanner"
+            BlueprintName = "BBYScanner.temp_caseinsensitive_rename"
             ReferencedContainer = "container:BBYScanner.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

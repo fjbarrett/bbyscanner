@@ -22,6 +22,8 @@
     AVCaptureMetadataOutput *_output;
     AVCaptureVideoPreviewLayer *_prevLayer;
     
+    BOOL firstScan;
+    
     UIView *view1;
     UIView *view2;
     UIView *previewView;
@@ -33,6 +35,7 @@
     UILabel *name;
     UILabel *salePriceLabel;
     UILabel *skuLabel;
+    UILabel *reportLabel;
     NSString *salePriceString;
     UIView *_line;
     UIButton *_button;
@@ -42,6 +45,8 @@
     UIButton *scanButton;
     UIButton *magButton;
     UIButton *moveButton;
+    UIButton *compareButton;
+    UIButton *setStoreButton;
     NSString *detectionString;
     UIImageView *barcode;
     UIImageView *inStockImg;
@@ -57,8 +62,11 @@
     CGFloat scannerTop;
     NSString *newDetectionString;
     NSString *newDetectionType;
+    NSString *storeNumber;
     NSDictionary *productResult;
     NSDictionary *storeResult;
+    NSDictionary *productResult2;
+    NSDictionary *storeResult2;
     NSDictionary *productDict;
     NSNumber *salePrice;
     double salePriceDouble;
@@ -74,6 +82,10 @@
 
 - (void)viewDidLoad
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    storeNumber = [defaults objectForKey:@"storeNumber"];
+    
     [super viewDidLoad];
     
     view1.backgroundColor = [UIColor blackColor];
@@ -83,6 +95,15 @@
     
     NSLog(@"Height %f", height);
     NSLog(@"Width %f", width);
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    
+    NSLog(@"ScreenWidth %f", screenWidth);
+    NSLog(@"ScreenHeight %f", screenHeight);
+    NSLog(@"Scale %f", [UIScreen mainScreen].scale);
+    
     scannerBottom = height-(height-((height/2)+100));
     scannerTop = height-(height-((height/2)-100));
     
@@ -113,57 +134,40 @@
     [cancelButton addTarget:self
                      action:@selector(cancelButton:)
            forControlEvents:UIControlEventTouchUpInside];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlStateNormal];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchDown];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchUpInside];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchUpOutside];
+    [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    cancelButton.backgroundColor = [UIColor whiteColor];
+    [cancelButton setTitleColor:[UIColor colorWithRed:2/255.0 green:45/255.0 blue:82/255.0 alpha:1] forState:UIControlStateNormal];
+    cancelButton.titleLabel.font = [UIFont fontWithName:@"SFUIText-Regular" size:20];
+//    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlStateNormal];
+//    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchDown];
+//    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchUpInside];
+//    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchUpOutside];
     [view1 addSubview:cancelButton];
     [view1 bringSubviewToFront:cancelButton];
     
-//    moveButton = [[UIButton alloc] init];
-//    moveButton.frame = CGRectMake(width-50, height-50, 50, 50);
-//    [moveButton addTarget:self
-//                     action:@selector(moveButton:)
-//           forControlEvents:UIControlEventTouchUpInside];
-//    moveButton.backgroundColor = [UIColor whiteColor];
-//    [moveButton setTitle:@"Move" forState:UIControlStateNormal];
-//    [view1 addSubview:moveButton];
-//    [view1 bringSubviewToFront:moveButton];
+    setStoreButton = [[UIButton alloc] init];
+    setStoreButton.frame = CGRectMake((width/2)-60, height-40, 120, 30);
+    [setStoreButton addTarget:self
+                     action:@selector(setStoreButtonAction:)
+           forControlEvents:UIControlEventTouchUpInside];
+    [setStoreButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [setStoreButton setTitle:storeNumber forState:UIControlStateNormal];
+    setStoreButton.layer.cornerRadius = 1.0;
+    setStoreButton.titleLabel.font = [UIFont fontWithName:@"SFUIText-Regular" size:18];
+    [view1 addSubview:setStoreButton];
+    [view1 bringSubviewToFront:setStoreButton];
+
     
     
     barcode = [[UIImageView alloc] init];
     barcode.frame = CGRectMake((self.view.bounds.size.width/2)-40, (((height-scannerBottom)/2))-50, 80, 80);
-    barcode.image = [UIImage imageNamed:@"whitebarcode"];
+    barcode.image = [UIImage imageNamed:@"barcode"];
     [view1 addSubview:barcode];
     [view1 bringSubviewToFront:barcode];
     
-   
-    
-//    magButton = [[UIButton alloc] init];
-//    magButton.frame = CGRectMake(self.view.bounds.size.width-60, 30, 40, 40);
-//    magButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-//    [magButton addTarget:self
-//                       action:@selector(initScanButton:)
-//             forControlEvents:UIControlEventTouchUpInside];
-//    [magButton setBackgroundImage:[UIImage imageNamed:@"mag"] forState:UIControlStateNormal];
-//    [magButton setBackgroundImage:[UIImage imageNamed:@"mag"] forState:UIControlEventTouchDown];
-//    [magButton setBackgroundImage:[UIImage imageNamed:@"mag"] forState:UIControlEventTouchUpInside];
-//    [magButton setBackgroundImage:[UIImage imageNamed:@"mag"] forState:UIControlEventTouchUpOutside];
-//    [self.view addSubview:magButton];
-//    [self.view bringSubviewToFront:magButton];
-    
-    
-//    _line = [[UIView alloc] init];
-//    _line.frame = CGRectMake((self.view.bounds.size.width/2)-150, (self.view.bounds.size.height / 2)-50, 300, 100);
-//    _line.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-//    _line.layer.borderColor = [UIColor whiteColor].CGColor;
-//    _line.layer.borderWidth = 1;
-//    [self.view addSubview:_line];
-    
-    
     name = [[UILabel alloc] init];
     name.frame = CGRectMake(width, (((height-scannerBottom)/2))-50, self.view.bounds.size.width-150, 40);
-    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:20]];
+    [name setFont:[UIFont fontWithName:@"SFUIText-Light" size:20]];
     name.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     name.textColor = [UIColor whiteColor];
     name.textAlignment = NSTextAlignmentLeft;
@@ -173,7 +177,7 @@
     
     salePriceLabel = [[UILabel alloc] init];
     salePriceLabel.frame = CGRectMake(width, (((height-scannerBottom)/2)-16), self.view.bounds.size.width, 40);
-    [salePriceLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:30]];
+    [salePriceLabel setFont:[UIFont fontWithName:@"SFUIText-Light" size:30]];
     salePriceLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     salePriceLabel.textColor = [UIColor whiteColor];
     salePriceLabel.textAlignment = NSTextAlignmentLeft;
@@ -181,9 +185,19 @@
     [view1 addSubview:salePriceLabel];
     [salePriceLabel setAlpha:0];
     
+    reportLabel = [[UILabel alloc] init];
+    reportLabel.frame = CGRectMake((width/2)-75, scannerBottom+30, 150, 40);
+    [reportLabel setFont:[UIFont fontWithName:@"SFUIText-Light" size:20]];
+    reportLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    reportLabel.textColor = [UIColor whiteColor];
+    reportLabel.textAlignment = NSTextAlignmentCenter;
+    reportLabel.text = nil;
+    [view1 addSubview:reportLabel];
+    [reportLabel setAlpha:0];
+    
     skuLabel = [[UILabel alloc] init];
     skuLabel.frame = CGRectMake(30, (height/2)-168, 200, 40);
-    [skuLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+    [skuLabel setFont:[UIFont fontWithName:@"SFUIText-Light" size:14]];
     skuLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     skuLabel.textColor = [UIColor whiteColor];
     skuLabel.textAlignment = NSTextAlignmentLeft;
@@ -192,21 +206,28 @@
     
     
     
-    outStockImg = [[UIImageView alloc] init];
-    outStockImg.frame = CGRectMake((width/2)-75, (height/2)-75, 150, 150);
-    outStockImg.image = [UIImage imageNamed:@"scanned-x-bluered"];
-    [outStockImg setAlpha:0];
-    
-    
-    
-    
     [view1 bringSubviewToFront:name];
     [view1 bringSubviewToFront:salePriceLabel];
     [view1 bringSubviewToFront:_label];
+
     
-    [view1 addSubview:badUPCImg];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    storeNumber = [defaults valueForKey:@"storeNumber"];
+    NSString *storeNumberDisplay = [NSString stringWithFormat:@"%@%@", @"Store #", storeNumber];
+    
+    if (storeNumber == NULL) {
+        NSLog(@"yes");
+        
+        [self performSelector:@selector(setStoreButtonAction:) withObject:nil afterDelay:0.0];
+    }
+    
+    [setStoreButton setTitle:storeNumberDisplay forState:UIControlStateNormal];
 }
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
@@ -242,42 +263,9 @@
         
         if (detectionString != nil)
         {
-            [_session stopRunning];
-            [_line setAlpha:0];
-            NSLog(@"%i",[detectionString length]);
-            NSLog(@"%@",detectionString);
-            functions = [[Functions alloc] init];
-            newDetectionString = [functions determineScanString:detectionString];
-            newDetectionType = [functions determineScanType:detectionString];
-            productResult = [functions returnDataProducts:newDetectionString codeType:newDetectionType];
-            storeResult = [functions returnDataStores:newDetectionString codeType:newDetectionType];
-            NSLog(@"Product Class %@", [productResult class]);
-            if ([productResult[@"products"] count] != NULL) {
-                salePrice = productResult[@"products"][0][@"salePrice"];
-                salePriceDouble = fabs(salePrice.doubleValue);
-                skuLabel.text = [NSString stringWithFormat:@"SKU: %@",productResult[@"products"][0][@"sku"]];
-            };
-            if (storeResult != nil && productResult != nil) {
-                NSLog(@"%@", productResult);
-                NSLog(@"%@", storeResult);
-                if ([productResult[@"to"] intValue] == 1 && [storeResult[@"to"] intValue] == 1) {
-                    [self goodScan:newDetectionString typeofCode:newDetectionType];
-                    name.text = productResult[@"products"][0][@"name"];
-                    salePriceLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", salePriceDouble];
-                } else if ([productResult[@"to"] intValue] == 1 && [storeResult[@"to"] intValue] == 0) {
-                    name.text = productResult[@"products"][0][@"name"];
-                    salePriceLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", salePriceDouble];
-                    [self goodScanOut:newDetectionString typeofCode:newDetectionType];
-                } else if ([productResult[@"to"] intValue] == 0 && [storeResult[@"to"] intValue] == 0) {
-                    [self badUPC];
-                }
-                highlightViewRect = CGRectZero;
-            } else {
-                [self badUPC];
-            }
+            [self runOneScan];
         }
-            }
-            _highlightView.frame = highlightViewRect;
+    }
 }
 
 - (IBAction) _button: (id) sender {
@@ -296,10 +284,15 @@
     [specsButton removeFromSuperview];
     [_session performSelectorInBackground:@selector(startRunning) withObject:nil];
     skuLabel.text = nil;
+    reportLabel.text = nil;
 }
 
 - (IBAction) specsButton: (id) sender {
     [self performSegueWithIdentifier:@"toSpecs" sender:sender];
+}
+
+- (IBAction) setStoreButtonAction: (id) sender {
+    [self performSegueWithIdentifier:@"toSetStore" sender:sender];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -310,16 +303,6 @@
     }
 }
 
-- (IBAction) moveButton: (id) sender {
-    [self initView2];
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.5];
-    view1.frame = CGRectMake(-width, 0, width, height);
-    view2.frame = CGRectMake(0, 0, width, height);
-    [UIView commitAnimations];
-    
-}
-
 - (IBAction) cancelButton: (id) sender {
     scanButton = [[UIButton alloc] init];
     scanButton.frame = CGRectMake((self.view.bounds.size.width/2)-120, (height-((height-scannerBottom)/2))-32, 240, 64);
@@ -327,10 +310,14 @@
     [scanButton addTarget:self
                        action:@selector(scanButton:)
              forControlEvents:UIControlEventTouchUpInside];
-    [scanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlStateNormal];
-    [scanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlEventTouchDown];
-    [scanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlEventTouchUpInside];
-    [scanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlEventTouchUpOutside];
+    [scanButton setTitle:@"Scan" forState:UIControlStateNormal];
+    scanButton.backgroundColor = [UIColor whiteColor];
+    [scanButton setTitleColor:[UIColor colorWithRed:2/255.0 green:45/255.0 blue:82/255.0 alpha:1] forState:UIControlStateNormal];
+    scanButton.titleLabel.font = [UIFont fontWithName:@"SFUIText-Regular" size:20];
+//    [scanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlStateNormal];
+//    [scanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlEventTouchDown];
+//    [scanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlEventTouchUpInside];
+//    [scanButton setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlEventTouchUpOutside];
     [view1 addSubview:scanButton];
     [view1 bringSubviewToFront:scanButton];
     [UIView beginAnimations:nil context:NULL];
@@ -344,6 +331,7 @@
     bottomBack.alpha = 1;
     [UIView commitAnimations];
     [cancelButton removeFromSuperview];
+    reportLabel.text = nil;
 }
 
 - (IBAction) scanButton: (id) sender {
@@ -353,10 +341,10 @@
     [cancelButton addTarget:self
                      action:@selector(cancelButton:)
            forControlEvents:UIControlEventTouchUpInside];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlStateNormal];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchDown];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchUpInside];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelbutton"] forState:UIControlEventTouchUpOutside];
+    [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    cancelButton.backgroundColor = [UIColor whiteColor];
+    [cancelButton setTitleColor:[UIColor colorWithRed:2/255.0 green:45/255.0 blue:82/255.0 alpha:1] forState:UIControlStateNormal];
+    cancelButton.titleLabel.font = [UIFont fontWithName:@"SFUIText-Regular" size:20];
     [view1 addSubview:cancelButton];
     [view1 bringSubviewToFront:cancelButton];
     
@@ -375,6 +363,7 @@
     scanButton.frame = CGRectMake((self.view.bounds.size.width/2)-120, (height-((height-scannerBottom)/2))-32, 240, 64);
     [_session performSelectorInBackground:@selector(startRunning) withObject:nil];
     skuLabel.text = nil;
+    reportLabel.text = nil;
 }
 
 - (void)initSession
@@ -417,22 +406,20 @@
     [_button addTarget:self
                 action:@selector(_button:)
       forControlEvents:UIControlEventTouchUpInside];
-    [_button setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlStateNormal];
-    [_button setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlEventTouchDown];
-    [_button setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlEventTouchUpInside];
-    [_button setBackgroundImage:[UIImage imageNamed:@"scan-button-2"] forState:UIControlEventTouchUpOutside];
+    [_button setTitle:@"Scan" forState:UIControlStateNormal];
+    _button.backgroundColor = [UIColor whiteColor];
+    [_button setTitleColor:[UIColor colorWithRed:2/255.0 green:45/255.0 blue:82/255.0 alpha:1] forState:UIControlStateNormal];
+    _button.titleLabel.font = [UIFont fontWithName:@"SFUIText-Regular" size:20];
     [view1 addSubview:_button];
     [view1 bringSubviewToFront:_button];
 }
 
 
 - (void) goodScan:(NSString*)pullDetectionString typeofCode:(NSString *)typeofCode {
-//    [self initProductImage:pullDetectionString typeofCode:typeofCode];
     [self addSpecsButton];
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];
     barcode.frame = CGRectMake(40, (((height-scannerBottom)/2))-50, 80, 80);
-//    productImage.frame = CGRectMake((width/2)-(newWidth/2), (height/2)-(newHeight/2), newWidth, newHeight);
     previewView.frame = CGRectMake(0, 0, width, height);
     [name setAlpha:1];
     [salePriceLabel setAlpha:1];
@@ -440,12 +427,14 @@
     specsButton.frame = CGRectMake(width-150, (height/2)-168, 120, 30);
     name.frame = CGRectMake(140, (((height-scannerBottom)/2))-50, self.view.bounds.size.width-150, 40);
     salePriceLabel.frame = CGRectMake(140, (((height-scannerBottom)/2)-16), self.view.bounds.size.width, 40);
+    reportLabel.text = @"In stock";
+    reportLabel.alpha = 1.0;
     [UIView commitAnimations];
     
     inStockImg = [[UIImageView alloc] init];
     inStockImg.layer.frame = CGRectMake((width/2)-75, (height/2)-75, 150, 150);
     inStockImg.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.0, 0.0);
-    inStockImg.image = [UIImage imageNamed:@"roundcheckmark-green"];
+    inStockImg.image = [UIImage imageNamed:@"greencheck-2"];
     [view1 addSubview:inStockImg];
     [inStockImg setAlpha:1];
     [UIView beginAnimations:nil context:NULL];
@@ -459,8 +448,10 @@
     inStockImg.layer.anchorPoint = CGPointMake(0.5, 0.5);
     inStockImg.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
     [UIView commitAnimations];
-    
+    [view1 addSubview:compareButton];
+    [view1 bringSubviewToFront:compareButton];
     [self addButton];
+    
 }
 
 - (void) goodScanOut:(NSString*)pullDetectionString typeofCode:(NSString *)typeofCode {
@@ -469,14 +460,32 @@
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];
     barcode.frame = CGRectMake(40, (((height-scannerBottom)/2))-50, 80, 80);
-//    CGRect rect = [outStockImg frame];
-    [outStockImg setAlpha:1];
     [name setAlpha:1];
     [salePriceLabel setAlpha:1];
-    highlightViewRect = CGRectZero;
     name.frame = CGRectMake(140, (((height-scannerBottom)/2))-50, self.view.bounds.size.width-150, 40);
     salePriceLabel.frame = CGRectMake(140, (((height-scannerBottom)/2)-16), self.view.bounds.size.width, 40);
     specsButton.frame = CGRectMake(width-150, (height/2)-168, 120, 30);
+    reportLabel.text = @"Out of stock";
+    reportLabel.alpha = 1.0;
+    [UIView commitAnimations];
+    
+    outStockImg = [[UIImageView alloc] init];
+    outStockImg.frame = CGRectMake((width/2)-75, (height/2)-75, 150, 150);
+    outStockImg.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.0, 0.0);
+    outStockImg.image = [UIImage imageNamed:@"redx"];
+    [view1 addSubview:outStockImg];
+    outStockImg.alpha = 1.0;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    outStockImg.layer.anchorPoint = CGPointMake(0.5, 0.5);
+    outStockImg.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
+    [UIView commitAnimations];
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationDelay:0.2];
+    outStockImg.layer.anchorPoint = CGPointMake(0.5, 0.5);
+    outStockImg.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0);
     [UIView commitAnimations];
     [self addButton];
 }
@@ -485,13 +494,14 @@
     badUPCImg = [[UIImageView alloc] init];
     badUPCImg.layer.frame = CGRectMake((self.view.bounds.size.width/2)-75, (self.view.bounds.size.height/2)-75, 150, 150);
     badUPCImg.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.0, 0.0);
-    badUPCImg.image = [UIImage imageNamed:@"scanned-x-red"];
+    badUPCImg.image = [UIImage imageNamed:@"x-badscan"];
     [view1 addSubview:badUPCImg];
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3];
     badUPCImg.layer.anchorPoint = CGPointMake(0.5, 0.5);
     badUPCImg.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.3, 1.3);
-    highlightViewRect = CGRectZero;
+    reportLabel.text = @"Bad barcode";
+    reportLabel.alpha = 1.0;
     [UIView commitAnimations];
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.2];
@@ -501,6 +511,7 @@
     highlightViewRect = CGRectZero;
     [UIView commitAnimations];
     [self addButton];
+    reportLabel.text = @"Bad barcode";
 }
 
 -(void) addSpecsButton {
@@ -509,23 +520,52 @@
     [specsButton addTarget:self
                     action:@selector(specsButton:)
       forControlEvents:UIControlEventTouchUpInside];
-    [specsButton setBackgroundImage:[UIImage imageNamed:@"specs"] forState:UIControlStateNormal];
-    [specsButton setBackgroundImage:[UIImage imageNamed:@"specs"] forState:UIControlEventTouchDown];
-    [specsButton setBackgroundImage:[UIImage imageNamed:@"specs"] forState:UIControlEventTouchUpInside];
-    [specsButton setBackgroundImage:[UIImage imageNamed:@"specs"] forState:UIControlEventTouchUpOutside];
+    [specsButton setTitle:@"Specs" forState:UIControlStateNormal];
+    specsButton.backgroundColor = [UIColor whiteColor];
+    [specsButton setTitleColor:[UIColor colorWithRed:2/255.0 green:45/255.0 blue:82/255.0 alpha:1] forState:UIControlStateNormal];
+    specsButton.titleLabel.font = [UIFont fontWithName:@"SFUIText-Regular" size:14];
+//    [specsButton setBackgroundImage:[UIImage imageNamed:@"specs"] forState:UIControlStateNormal];
+//    [specsButton setBackgroundImage:[UIImage imageNamed:@"specs"] forState:UIControlEventTouchDown];
+//    [specsButton setBackgroundImage:[UIImage imageNamed:@"specs"] forState:UIControlEventTouchUpInside];
+//    [specsButton setBackgroundImage:[UIImage imageNamed:@"specs"] forState:UIControlEventTouchUpOutside];
     [view1 addSubview:specsButton];
     [view1 bringSubviewToFront:specsButton];
 }
 
--(void) initView2 {
-    view2 = [[UIView alloc] init];
-    view2.frame = CGRectMake(width, 0, width, height);
-    [self.view addSubview:view2];
-    [self.view bringSubviewToFront:view2];
-    view2.backgroundColor = [UIColor blackColor];
+-(void) runOneScan {
+    [_session stopRunning];
+    [_line setAlpha:0];
+    NSLog(@"%i",[detectionString length]);
+    NSLog(@"%@",detectionString);
+    functions = [[Functions alloc] init];
+    newDetectionString = [functions determineScanString:detectionString];
+    newDetectionType = [functions determineScanType:detectionString];
+    productResult = [functions returnDataProducts:newDetectionString codeType:newDetectionType];
+    storeResult = [functions returnDataStores:newDetectionString codeType:newDetectionType];
+    NSLog(@"Product Class %@", [productResult class]);
+    if ([productResult[@"products"] count] != NULL) {
+        salePrice = productResult[@"products"][0][@"salePrice"];
+        salePriceDouble = fabs(salePrice.doubleValue);
+        skuLabel.text = [NSString stringWithFormat:@"SKU: %@",productResult[@"products"][0][@"sku"]];
+    };
+    if (storeResult != nil && productResult != nil) {
+        NSLog(@"%@", productResult);
+        NSLog(@"%@", storeResult);
+        if ([productResult[@"to"] intValue] == 1 && [storeResult[@"to"] intValue] == 1) {
+            [self goodScan:newDetectionString typeofCode:newDetectionType];
+            name.text = productResult[@"products"][0][@"name"];
+            salePriceLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", salePriceDouble];
+        } else if ([productResult[@"to"] intValue] == 1 && [storeResult[@"to"] intValue] == 0) {
+            name.text = productResult[@"products"][0][@"name"];
+            salePriceLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", salePriceDouble];
+            [self goodScanOut:newDetectionString typeofCode:newDetectionType];
+        } else if ([productResult[@"to"] intValue] == 0 && [storeResult[@"to"] intValue] == 0) {
+            [self badUPC];
+        }
+    } else {
+        [self badUPC];
+    }
 }
-
-
 
 - (void)listSubviewsOfView:(UIView *)view {
     
@@ -544,6 +584,16 @@
         [self listSubviewsOfView:subview];
     }
 }
+
+-(void) initView2 {
+    view2 = [[UIView alloc] init];
+    view2.frame = CGRectMake(width, 0, width, height);
+    [self.view addSubview:view2];
+    [self.view bringSubviewToFront:view2];
+    view2.backgroundColor = [UIColor blackColor];
+}
+
+
 
 
 @end

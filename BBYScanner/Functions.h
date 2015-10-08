@@ -15,6 +15,7 @@
 - (void) postToMysql:(NSString*)string;
 - (NSString*) determineScanString:(NSString*)detectionString;
 - (NSString*) determineScanType:(NSString*)detectionString;
+- (int) determineStoreLegit:(NSString*)storeNumber;
 - (NSDictionary*) returnDataProducts:(NSString*)goodString codeType:(NSString*)codeType;
 - (NSDictionary*) returnDataStores:(NSString*)goodString codeType:(NSString*)codeType;
 
